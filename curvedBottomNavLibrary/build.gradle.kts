@@ -52,7 +52,7 @@ publishing {
 
             groupId = "com.github.tugbaolcer"
             artifactId = "CurvedBottomNavLib"
-            version = "1.0.1"
+            version = "1.0.2"
 
             pom {
                 name.set("CurvedBottomNavLib")
