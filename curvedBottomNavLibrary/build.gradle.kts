@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("maven-publish")
 }
 
 android {
@@ -40,4 +41,48 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("release") {
+            afterEvaluate {
+                from(components["release"])
+            }
+
+            groupId = "com.github.tugbaolcer"
+            artifactId = "CurvedBottomNavLib"
+            version = "1.0"
+
+            pom {
+                name.set("CurvedBottomNavLib")
+                description.set("A curved bottom navigation library for Android.")
+                url.set("https://github.com/tugbaolcer/CurvedBottomNavLib")
+
+                licenses {
+                    license {
+                        name.set("The Apache License, Version 2.0")
+                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                    }
+                }
+                developers {
+                    developer {
+                        id.set("tugbaolcer")
+                        name.set("Tuğba")
+                    }
+                }
+                scm {
+                    connection.set("scm:git:github.com/tugbaolcer/CurvedBottomNavLib.git")
+                    developerConnection.set("scm:git:ssh://github.com/tugbaolcer/CurvedBottomNavLib.git")
+                    url.set("https://github.com/tugbaolcer/CurvedBottomNavLib")
+                }
+            }
+        }
+    }
+}
+
+tasks.register("printComponents") {
+    doLast {
+        println("Available components: ${components.names}")
+    }
 }
