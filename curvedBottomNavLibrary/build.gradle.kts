@@ -22,11 +22,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     viewBinding {
         enable = true
@@ -81,6 +81,7 @@ publishing {
     }
 }
 
+//dosya yolu falan aramada kullanırım bu infoyu
 tasks.register("printComponents") {
     doLast {
         println("Available components: ${components.names}")
