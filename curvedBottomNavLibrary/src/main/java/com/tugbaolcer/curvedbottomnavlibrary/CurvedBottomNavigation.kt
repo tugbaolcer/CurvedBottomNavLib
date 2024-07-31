@@ -92,6 +92,8 @@ class CurvedBottomNavigation : BottomNavigationView {
                 }
             }
         }
+
+        setupListener()
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -148,8 +150,8 @@ class CurvedBottomNavigation : BottomNavigationView {
         canvas.drawPath(path!!, paint!!)
     }
 
-    fun draw(i: Int, bottomNavigation: CurvedBottomNavigation) {
-        bottomNavigation.let { bottomNavigation ->
+    fun draw(i: Int) {
+        this@CurvedBottomNavigation.let { bottomNavigation ->
             firstCurveStartPoint.set(
                 bottomNavigation.bottomNavBarWidth / i - bottomNavigation.curveCircleRadius * 2 -
                         bottomNavigation.curveCircleRadius / 3, 0
@@ -189,9 +191,8 @@ class CurvedBottomNavigation : BottomNavigationView {
 
     }
 
-    fun draw(bottomNavigation: CurvedBottomNavigation) {
-
-        bottomNavigation.let { bottomNavigation ->
+    fun draw() {
+        this@CurvedBottomNavigation.let { bottomNavigation ->
             firstCurveStartPoint.set(
                 bottomNavigation.bottomNavBarWidth * 10 / 12 - bottomNavigation.curveCircleRadius * 2 -
                         bottomNavigation.curveCircleRadius / 3, 0
@@ -231,28 +232,28 @@ class CurvedBottomNavigation : BottomNavigationView {
     }
 
 
-    fun changedFabIcon(bottomNavigation: CurvedBottomNavigation, menuItem: MenuItem) {
+    fun changedFabIcon( menuItem: MenuItem) {
         binding.apply {
             when (menuItem.itemId) {
                 menu.getItem(0).itemId -> {
-                    bottomNavigation.draw(6, bottomNavigation)
-                    linId.x = bottomNavigation.firstCurveControlPointX.x.toFloat()
+                    draw(6)
+                    linId.x = firstCurveControlPointX.x.toFloat()
                     fab1.visibility = View.VISIBLE
                     fab2.visibility = View.GONE
                     fab3.visibility = View.GONE
                 }
 
                 menu.getItem(1).itemId -> {
-                    bottomNavigation.draw(2, bottomNavigation)
-                    linId.x = bottomNavigation.firstCurveControlPointX.x.toFloat()
+                    draw(2)
+                    linId.x = firstCurveControlPointX.x.toFloat()
                     fab1.visibility = View.GONE
                     fab2.visibility = View.VISIBLE
                     fab3.visibility = View.GONE
                 }
 
                 menu.getItem(2).itemId -> {
-                    bottomNavigation.draw(bottomNavigation)
-                    linId.x = bottomNavigation.firstCurveControlPointX.x.toFloat()
+                    draw()
+                    linId.x = firstCurveControlPointX.x.toFloat()
                     fab1.visibility = View.GONE
                     fab2.visibility = View.GONE
                     fab3.visibility = View.VISIBLE
@@ -262,4 +263,10 @@ class CurvedBottomNavigation : BottomNavigationView {
 
     }
 
+    private fun setupListener() {
+        this.setOnItemSelectedListener { item ->
+            changedFabIcon(item)
+            true
+        }
+    }
 }
