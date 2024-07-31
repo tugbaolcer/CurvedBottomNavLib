@@ -82,7 +82,7 @@ class CurvedBottomNavigation : BottomNavigationView {
         paint!!.color = customBackgroundColor
         setBackgroundColor(Color.TRANSPARENT)
         itemBackgroundResource = R.drawable.bg_inset
-        post { selectedItemId = R.id.nav_categories }
+        post { selectedItemId = menu.getItem(1).itemId }
         binding.apply {
             linId.backgroundTintList = ColorStateList.valueOf(customFabCircleColor)
             linId.children.forEach { view ->
@@ -94,6 +94,14 @@ class CurvedBottomNavigation : BottomNavigationView {
         }
 
         setupListener()
+    }
+
+
+    fun setHeightInDp(heightInDp: Int) {
+        val heightInPx = (heightInDp * resources.displayMetrics.density).toInt()
+        val layoutParams = layoutParams
+        layoutParams.height = heightInPx
+        this@CurvedBottomNavigation.layoutParams = layoutParams
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -147,10 +155,11 @@ class CurvedBottomNavigation : BottomNavigationView {
             close()
         }
         canvas.translate(0f, 110f)
+        setHeightInDp(120)
         canvas.drawPath(path!!, paint!!)
     }
 
-    fun draw(i: Int) {
+    private fun draw(i: Int) {
         this@CurvedBottomNavigation.let { bottomNavigation ->
             firstCurveStartPoint.set(
                 bottomNavigation.bottomNavBarWidth / i - bottomNavigation.curveCircleRadius * 2 -
@@ -187,11 +196,9 @@ class CurvedBottomNavigation : BottomNavigationView {
                 bottomNavigation.secondCurveEndPoint.y
             )
         }
-
-
     }
 
-    fun draw() {
+    private fun draw() {
         this@CurvedBottomNavigation.let { bottomNavigation ->
             firstCurveStartPoint.set(
                 bottomNavigation.bottomNavBarWidth * 10 / 12 - bottomNavigation.curveCircleRadius * 2 -
