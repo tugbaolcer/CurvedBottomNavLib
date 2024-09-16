@@ -1,4 +1,6 @@
 CurvedBottomNavLib
+
+
 CurvedBottomNavLib is an Android library for implementing a curved bottom navigation view with a custom floating action button (FAB) in your app. This library allows developers to easily create an attractive bottom navigation bar with a centered FAB, providing a modern and clean UI/UX experience.
 
 Features
