@@ -19,7 +19,7 @@ Add the following dependency to your `build.gradle` file:
 
 ```gradle
 dependencies {
-    implementation 'com.github.tugbaolcer:CurvedBottomNavLib:1.0.0'
+    implementation 'com.github.tugbaolcer:CurvedBottomNavLib:1a91e1c525'
 }
 ```
 Make sure to add the following Maven repository to your project’s root `build.gradle` file:
